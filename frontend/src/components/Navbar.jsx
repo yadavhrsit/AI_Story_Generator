@@ -10,7 +10,7 @@ function Navbar() {
   return (
     <div className={`w-full py-2 px-6 rounded-b-3xl bg-[#213555] ${isOpen ? 'menu-open' : 'menu-closed'}`}>
       <div className="flex justify-between items-center">
-        <p className='text-[44px]'>Story.ai</p>
+        <p className='text-[44px] h-fit'>Story.ai</p>
         <div className='gap-10 text-[32px] hidden sm:flex'>
           <NavLink to={'home'}>Home</NavLink>
           <NavLink to={'profile'}>Profile</NavLink>

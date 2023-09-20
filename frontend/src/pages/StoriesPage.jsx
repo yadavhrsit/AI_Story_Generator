@@ -7,7 +7,7 @@ import StoryCard from "../components/story/StoryCard";
 function StoriesPage() {
   return (
     <div
-      className={`grow w-full md:max-h-[calc(100vh-120px)] md:overflow-y-auto p-2 rounded-lg bg-[${primary}] lg:py-4 lg:px-8 lg:rounded-2xl` }
+      className={`grow w-full md:max-h-[calc(100vh-115px)] md:overflow-y-auto p-2 rounded-lg bg-[${primary}] lg:py-4 lg:px-8 lg:rounded-2xl` }
     >
       <div className="w-full flex justify-between items-center">
         <p className="text-[26px] sm:text-4xl">Stories</p>
