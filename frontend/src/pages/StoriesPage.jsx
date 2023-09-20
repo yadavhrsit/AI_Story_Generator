@@ -5,7 +5,7 @@ import StoryCard from "../components/story/StoryCard";
 import LeaderBoard from "../components/leaderboard/LeaderBoard";
 function StoriesPage() {
   return (
-    <div className="w-full min-h-full max-w-screen-2xl">
+    <div className="w-full min-h-full max-w-[2440px]">
       <div className="flex w-full gap-10 justify-between">
         <div className={`grow w-full p-2 rounded-lg bg-[${primary}] lg:py-4 lg:px-8 lg:rounded-2xl`}>
           <div className="w-full flex justify-between items-center">
