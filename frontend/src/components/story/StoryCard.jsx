@@ -5,7 +5,7 @@ function StoryCard() {
   return (
     <div className='w-full pb-4 bg-[#00000048] font-[magra] rounded-lg md:max-w-[49%]'>
         <div className='md:flex md:justify-between md:w-full'>
-            <div className={`bg-[${secondary}] px-2 pb-2 rounded-t-md md:w-fit md:px-6 md:pb-0 md:h-fit`}>
+            <div className={`bg-[${secondary}] px-2 pb-2 rounded-tl-md md:w-fit md:pb-0 md:h-fit`}>
                 <p className='py-1 text-2xl uppercase font-semibold'>skylight city</p>
                 <div className='flex gap-2 md:hidden'>
                     <div className='rounded-full bg-white w-[35px] h-[35px] mt-1'/>

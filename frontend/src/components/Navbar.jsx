@@ -14,8 +14,9 @@ function Navbar() {
         <div className='gap-10 text-[32px] hidden sm:flex'>
           <NavLink to={'home'}>Home</NavLink>
           <NavLink to={'profile'}>Profile</NavLink>
+          <div className='rounded-full w-12 h-12 bg-white'/>
         </div>
-        <div className="lg:hidden">
+        <div className="md:hidden">
           <button
             onClick={toggleMenu}
             className='bg-transparent text-white'

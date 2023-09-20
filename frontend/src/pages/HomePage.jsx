@@ -6,7 +6,7 @@ import { primary } from '../colors';
 
 function HomePage() {
   return (
-    <div className={`w-full min-h-full p-4`}>
+    <div className={`w-full min-h-full p-4 flex justify-center`}>
       <Routes>
         <Route path="stories" element={<StoriesPage />} />
         <Route path="mystories" element={<MyStoriesPage />} />
