@@ -3,7 +3,7 @@ import { secondary } from '../../colors';
 
 function StoryCard() {
   return (
-    <div className='w-full pb-4 bg-[#00000048] font-[magra] rounded-lg md:max-w-[49%]'>
+    <div className='w-full max-h-fit pb-4 bg-[#00000048] font-[magra] rounded-lg md:max-w-[49%]'>
         <div className='md:flex md:justify-between md:w-full'>
             <div className={`bg-[${secondary}] px-2 pb-2 rounded-tl-md md:w-fit md:pb-0 md:h-fit`}>
                 <p className='py-1 text-2xl uppercase font-semibold'>skylight city</p>

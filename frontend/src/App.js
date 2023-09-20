@@ -9,7 +9,7 @@ import HomePage from "./pages/HomePage";
 function App() {
   let location = useLocation();
   return (
-    <>
+    <div className="max-h-full max-w-[1920px] w-full">
       {location.pathname === "/login" ||
       location.pathname === "/signup" ? null : (
         <Navbar />
@@ -24,7 +24,7 @@ function App() {
         </Route>
         <Route path="*" element={<Navigate to="/home/stories" replace />} />
       </Routes>
-    </>
+    </div>
   );
 }
 
