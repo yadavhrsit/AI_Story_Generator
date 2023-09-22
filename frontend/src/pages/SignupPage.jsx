@@ -22,17 +22,25 @@ function SignupPage() {
   };
 
   return (
-    <div className="w-full lg:flex lg:flex-col">
-      <div className={`bg-[${primary}] w-full px-6 py-2 rounded-b-3xl`}>
-        <p className="text-[44px] h-fit capitalize">Story.ai</p>
+    <div className="w-full h-full flex flex-col min-h-screen pb-2">
+      <div className={`w-full rounded-b-xl bg-[${primary}]`}>
+        <p className="capitalize text-[44px] py-1 px-4">story.ai</p>
       </div>
-      <div
-        className={`bg-[${primary}] w-full flex flex-col sm:flex-row gap-4 md:gap-10 mt-4 p-4 lg:p-10 font-[magra] text-xl md:text-2xl`}
-      >
-        <div className="w-full order-2 md:order-1 ">
+      <div className={`w-full grow rounded-xl mt-4 font-[magra] text-lg sm:text-xl px-2 py-2`}>
+        <div className={`w-full h-full sm:flex rounded-xl bg-[${primary}] p-4`}>
+          <div className="sm:w-1/2 sm:p-6 h-full flex flex-col lg:justify-around">
+            <p>
+              "Welcome to Story.ai, where creativity knows no bounds. Dive into a
+              world of storytelling magic, craft unique tales from prompts, and
+              connect with fellow wordsmiths. Sign up now to unleash your
+              imagination, share your narratives, and embark on a journey of
+              endless literary adventures."
+            </p>
+            <img src={img} className="w-[400px] hidden lg:block" alt="book" />
+          </div>
           <form
             onSubmit={handleSubmit}
-            className="font-medium w-full relative md:px-2"
+            className="font-medium w-full sm:w-1/2 lg:w-1/4 lg:ml-[10%] sm:p-6 relative md:px-2"
           >
             <div className="mt-2 w-full">
               <label className="block">Name</label>
@@ -74,9 +82,9 @@ function SignupPage() {
               Signup
             </button>
 
-            <p className="mt-3 h-fit">
+            <p className="mt-3 h-fit w-fit">
               Already Registered ?<br />
-              Login
+              <a href="/login">Login</a>
             </p>
             <img
               src={img}
@@ -84,19 +92,6 @@ function SignupPage() {
               alt="book"
             />
           </form>
-        </div>
-
-        <div className="w-full lg:h-full flex flex-col order-1 md:px-2">
-          <p className="min-h-[60%]">
-            "Welcome to Story.ai, where creativity knows no bounds. Dive into a
-            world of storytelling magic, craft unique tales from prompts, and
-            connect with fellow wordsmiths. Sign up now to unleash your
-            imagination, share your narratives, and embark on a journey of
-            endless literary adventures."
-          </p>
-          <div className="hidden 2xl:flex-grow">
-            <img src={img} className="h-full w-[450px] ml-auto" alt="book" />
-          </div>
         </div>
       </div>
     </div>
