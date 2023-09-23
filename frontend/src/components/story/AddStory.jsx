@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { primary, secondary } from '../../colors';
+import GeneratedStory from './GeneratedStory'
 
 function AddStory() {
   const [ideaInput, setIdeaInput] = useState('');
   const [tags, setTags] = useState([]);
   const [error, setError] = useState('');
+  const [res, setRes] = useState(false);
 
   const handleIdeaInputChange = (e) => {
     setIdeaInput(e.target.value);
@@ -31,25 +33,29 @@ function AddStory() {
     }
     console.log('Story Idea:', ideaInput);
     console.log('Tags:', tags);
+    setTimeout(()=>{setRes(!res)},1000)
   };
 
   return (
-    <div className='absolute flex items-center justify-center w-screen h-screen bg-[#00000075] px-4 font-[magra] text-xl font-medium'>
+    <>
+    { res ? <GeneratedStory/> :  
+    <div className='w-full py-10 my-2 rounded-xl flex items-start justify-center bg-[#00000075] px-1 font-[magra] text-xl font-medium'>
       <div className={`bg-[${primary}] text-[${primary}] rounded-2xl px-4 py-8 w-full lg:w-3/4`}>
         <p className='text-white'>Wish for a Story</p>
         <textarea
-          className="w-full h-32 mt-2 p-2 border rounded-lg "
+          className="w-full min-h-[140px] h-full mt-2 p-2 border rounded-lg text-black"
           placeholder="Enter your story idea... (Up to 50 words)"
           value={ideaInput}
           onChange={handleIdeaInputChange}
         />
+        
         {error && <p className="text-red-500">{error}</p>}
         <p className='text-white'>Tags (Maximum 3):</p>
         <div className="flex flex-wrap items-center mt-2">
           {tags.map((tag, index) => (
             <div
               key={index}
-              className="bg-[#f0f0f0] px-2 py-2 rounded-lg mr-2 mt-2 flex items-center"
+              className="bg-[#f0f0f0] text-black px-2 py-2 rounded-lg mr-2 mt-2 flex items-center"
             >
               {tag}
               <button
@@ -61,7 +67,7 @@ function AddStory() {
             </div>
           ))}
           <input
-            className="flex-grow border rounded px-2 py-1"
+            className="flex-grow border rounded px-2 py-1 mt-2 text-black"
             placeholder="Add tag and press Enter *optional"
             onKeyDown={handleTagInputChange}
           />
@@ -74,6 +80,8 @@ function AddStory() {
         </button>
       </div>
     </div>
+    }
+    </>
   );
 }
 
