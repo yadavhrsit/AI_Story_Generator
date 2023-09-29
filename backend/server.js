@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const PORT = process.env.PORT || 8100;
 const requireAuth = require('./middlewares/authMiddleware');
+const generateStory = require('./middlewares/storyGenerator.js');
 
 dotenv.config();
 app.use(express.json());
@@ -19,6 +20,7 @@ app.get('/story',requireAuth, (req, res) => {
     res.json({ userId: userData });
 })
 
+app.get('/generate-story',generateStory);
 
 const authRouter = require('./routes/authRoutes');
 app.use('/auth', authRouter);
