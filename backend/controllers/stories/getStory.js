@@ -1,8 +1,8 @@
-const Story = require('../../models/story'); 
+import Story from '../../models/story.js'; 
 
 async function getStory(req, res) {
   try {
-    const storyId = req.body.id;
+    const storyId = req.params.id;
 
     const story = await Story.findById(storyId);
 
@@ -16,4 +16,4 @@ async function getStory(req, res) {
   }
 }
 
-module.exports = { getStory };
+export default getStory;

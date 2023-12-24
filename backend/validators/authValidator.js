@@ -1,4 +1,4 @@
-const { body } = require('express-validator');
+import { body } from 'express-validator';
 
 const signInValidationRules = [
   body('email')
@@ -25,4 +25,4 @@ const signUpValidationRules = [
     .notEmpty().withMessage('Password is required')
 ];
 
-module.exports = { signInValidationRules, signUpValidationRules };
+export { signInValidationRules, signUpValidationRules };

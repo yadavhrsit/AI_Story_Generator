@@ -1,5 +1,4 @@
-const Story = require('../../models/story'); 
-
+import Story from '../../models/story.js'; 
 
 async function deleteStory(req, res) {
   try {
@@ -16,4 +15,4 @@ async function deleteStory(req, res) {
   }
 }
 
-module.exports = { deleteStory };
+export default deleteStory;

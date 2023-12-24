@@ -1,7 +1,7 @@
-const { validationResult } = require('express-validator');
-const User = require("../../models/user");
-const bcrypt = require("bcrypt");
-const createToken = require('../../utils/createToken');
+import { validationResult } from 'express-validator';
+import User from '../../models/user.js';
+import bcrypt from 'bcrypt';
+import createToken from '../../utils/createToken.js';
 
 const signUp = async (req, res) => {
   try {
@@ -28,12 +28,12 @@ const signUp = async (req, res) => {
 
     let createdUser = await newUser.save();
     const token = createToken(createdUser._id);
-    res.cookie('jwt',token,{httpOnly:true,maxAge:process.env.MAXAGE*1000})
-    res.status(201).json({ message: "User registered successfully",user:createdUser._id });
+    res.cookie('jwt', token, { httpOnly: true, maxAge: process.env.MAXAGE * 1000 });
+    res.status(201).json({ message: "User registered successfully", user: createdUser._id });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server Error" });
   }
 };
 
-module.exports = signUp;
+export default signUp;

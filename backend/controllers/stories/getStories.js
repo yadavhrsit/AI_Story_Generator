@@ -1,4 +1,4 @@
-const Story = require('../../models/story'); 
+import Story from '../../models/story.js'; 
 
 async function getStories(req, res) {
   try {
@@ -10,11 +10,10 @@ async function getStories(req, res) {
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit);
-
-    res.status(200).json(stories);
+      res.status(200).json(stories);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch stories' });
   }
 }
 
-module.exports = { getStories };
+export default getStories;

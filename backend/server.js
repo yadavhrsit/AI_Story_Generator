@@ -1,35 +1,42 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-const cookieParser = require('cookie-parser');
-const app = express();
-const PORT = process.env.PORT || 8100;
-const requireAuth = require('./middlewares/authMiddleware');
-const generateStory = require('./middlewares/storyGenerator.js');
+import express from 'express';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import cookieParser from 'cookie-parser';
+import requireAuth from './middlewares/authMiddleware.js';
+import cors from 'cors';
 
 dotenv.config();
+const app = express();
+const PORT = process.env.PORT || 8100;
+
 app.use(express.json());
 app.use(cookieParser());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 
 app.get('/', (req, res) => {
-    res.send('Server is Running')
+    res.send('Server is Running');
 });
 
-app.get('/story',requireAuth, (req, res) => {
+app.get('/story', requireAuth, (req, res) => {
     const userData = req.user.id;
     res.json({ userId: userData });
-})
+});
 
-app.get('/generate-story',generateStory);
-
-const authRouter = require('./routes/authRoutes');
+import authRouter from './routes/authRoutes.js';
+import storyRouter from './routes/storyRoutes.js';
 app.use('/auth', authRouter);
+app.use('/story', storyRouter);
 
 mongoose.connect(process.env.DB).then(() => {
-    console.log("MongoDB Connected")
+    console.log("MongoDB Connected");
 }).catch(() => {
     console.log("MongoDB Failed to connect");
-})
+});
 
 app.listen(PORT, () => {
     console.log(`Server Started on Port ${PORT}`);

@@ -4,22 +4,22 @@ import { GoogleAuth } from "google-auth-library";
 const MODEL_NAME = "models/text-bison-001";
 const API_KEY = "AIzaSyDBrpKkVxCsNigxEIHy1gphPDZMUMGU-5U";
 
-async function generateStory(prompt, tags) {
+async function generateTitle(story) {
   const client = new TextServiceClient({
     authClient: new GoogleAuth().fromAPIKey(API_KEY),
   });
 
-  const promptString = `write story on ${prompt}, of the ${tags} genre`;
+  const promptString = `Write a Title on the Following Story - ${story}`;
   const stopSequences = [];
 
   try {
     const result = await client.generateText({
       model: MODEL_NAME,
-      temperature: 0.85,
+      temperature: 0.7,
       candidateCount: 1,
       top_k: 40,
       top_p: 0.95,
-      max_output_tokens: 16000,
+      max_output_tokens: 1024,
       stop_sequences: stopSequences,
       safety_settings: [
         { category: "HARM_CATEGORY_DEROGATORY", threshold: 1 },
@@ -34,12 +34,13 @@ async function generateStory(prompt, tags) {
       },
     });
 
-    const story = JSON.stringify(result[0].candidates[0].output, null, 2);
-    return story;
+    const title = JSON.stringify(result[0].candidates[0].output, null, 2);
+    return title;
   } catch (error) {
     console.error(error);
-    throw error;
+    throw error; 
   }
 }
 
-export default generateStory;
+export default generateTitle;
+

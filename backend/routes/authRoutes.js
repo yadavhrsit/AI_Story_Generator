@@ -1,12 +1,13 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const signUp  = require('../controllers/auth/signupController');
-const signIn = require('../controllers/auth/signInController');
-const signOut = require('../controllers/auth/signOutController');
-const { signUpValidationRules,signInValidationRules } = require('../validators/authValidator');
+
+import signUp from '../controllers/auth/signupController.js';
+import signIn from '../controllers/auth/signInController.js';
+import signOut from '../controllers/auth/signOutController.js';
+import { signUpValidationRules, signInValidationRules } from '../validators/authValidator.js';
 
 router.post('/signup', signUpValidationRules, signUp);
 router.post('/signin', signInValidationRules, signIn);
 router.get('/signout', signOut);
 
-module.exports = router;
+export default router;

@@ -1,10 +1,10 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const storySchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
-    maxlength: 30,
+    maxlength: 60,
   },
   tags: {
     type: [String],
@@ -13,17 +13,17 @@ const storySchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 25,
-    maxlength: 160,
+    maxlength: 600,
   },
   content: {
     type: String,
     required: true,
-    minlength: 50,
-    maxlength: 500,
+    minlength: 1000,
+    maxlength: 5000,
   },
   time: {
     type: String,
-    default: '15 min read',
+    default: '2 min read',
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
@@ -40,4 +40,4 @@ const storySchema = new mongoose.Schema({
 
 const Story = mongoose.model('Story', storySchema);
 
-module.exports = Story;
+export default Story;

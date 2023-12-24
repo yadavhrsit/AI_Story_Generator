@@ -8,22 +8,25 @@ function Navbar() {
   };
 
   return (
-    <div className={`w-full py-2 px-6 rounded-b-3xl bg-[#213555] ${isOpen ? 'menu-open' : 'menu-closed'}`}>
+    <div
+      className={`w-full sticky top-0 py-2 px-6 rounded-b-3xl bg-[#213555] ${
+        isOpen ? "menu-open" : "menu-closed"
+      }`}
+    >
       <div className="flex justify-between items-center">
-        <p className='text-[44px] h-fit'>Story.ai</p>
-        <div className='gap-10 text-[32px] hidden sm:flex'>
-          <NavLink to={'home'}>Home</NavLink>
-          <NavLink to={'profile'}>Profile</NavLink>
-          <div className='rounded-full w-12 h-12 bg-white'/>
+        <p className="text-[36px] sm:text-[44px] h-fit">Story.ai</p>
+        <div className="gap-10 text-[32px] hidden sm:flex">
+          <NavLink to={"/home"}>Home</NavLink>
+          <NavLink to={"/profile"}>Profile</NavLink>
+          <div className="rounded-full w-12 h-12 bg-white" />
         </div>
         <div className="md:hidden">
-          <button
-            onClick={toggleMenu}
-            className='bg-transparent text-white'
-          >
+          <button onClick={toggleMenu} className="bg-transparent text-white">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className={`h-8 w-8 ${isOpen ? 'menu-icon-open' : 'menu-icon-closed'}`}
+              className={`h-8 w-8 ${
+                isOpen ? "menu-icon-open" : "menu-icon-closed"
+              }`}
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -49,10 +52,14 @@ function Navbar() {
       </div>
       {isOpen && (
         <div className="lg:hidden">
-          <ul className='flex gap-6 text-lg'>
-            <NavLink className="py-2 tracking-widest">Home</NavLink>
-            <NavLink className="py-2 tracking-widest">Profile</NavLink>
-            <NavLink className="py-2 tracking-widest">Leaderboard</NavLink>
+          <ul className="flex gap-6 text-lg">
+            <NavLink to={"/home"} className="py-2 tracking-widest">
+              Home
+            </NavLink>
+            <NavLink to={"/profile"} className="py-2 tracking-widest">
+              Profile
+            </NavLink>
+            <NavLink to={"/leaderboard"} className="py-2 tracking-widest">Leaderboard</NavLink>
           </ul>
         </div>
       )}
