@@ -2,7 +2,7 @@ import React,{useState} from "react";
 import { primary, secondary } from "../../colors";
 import api from "../../assets/api";
 import { useLocation } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation,useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +14,7 @@ function GeneratedStory() {
   const [prompt, setprompt] = useState(location.state && location.state.prompt)
 
   const token = localStorage.getItem("jwtToken");
+  const queryClient = useQueryClient();
 
   const postStoryMutation = useMutation({
     mutationFn: (story) => {
@@ -42,11 +43,16 @@ function GeneratedStory() {
         showConfirmButton: false,
         timer: 1500,
         confirmButtonColor: primary,
-      }).then(() =>
-        navigate("/home", {
-          state: { responseData, prompt },
+      })
+        .then(() => {
+          queryClient.invalidateQueries("stories")
+          queryClient.invalidateQueries("mystories")
         })
-      );
+        .then(() =>
+          navigate("/home", {
+            state: { responseData, prompt },
+          })
+        );
     },
     onError: async (error) => {
       Swal.fire({

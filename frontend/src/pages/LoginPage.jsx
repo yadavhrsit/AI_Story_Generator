@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { primary, secondary } from "../colors";
 import img from "../assets/bg.png";
 import { useForm } from "react-hook-form";

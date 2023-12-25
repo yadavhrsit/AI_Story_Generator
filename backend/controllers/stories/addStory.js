@@ -3,7 +3,8 @@ import User from "../../models/user.js";
 
 async function addStory(req, res) {
   try {
-    let { title, tags, description, content, userId } = req.body;
+    let { title, tags, description, content } = req.body;
+    let {userId} = req.params;
     const user = await User.findById(userId.id);
     if (!user) {
       return res.status(404).json({ error: "User not found" });
@@ -26,7 +27,7 @@ async function addStory(req, res) {
     const savedStory = await newStory.save();
     res.status(201).json(savedStory);
   } catch (error) {
-    res.status(500).json({ error: "Failed to add the story",});
+    res.status(500).json({ error: "Failed to add the story",error});
   }
 }
 

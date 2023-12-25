@@ -17,7 +17,7 @@ function Navbar() {
         <p className="text-[36px] sm:text-[44px] h-fit">Story.ai</p>
         <div className="gap-10 text-[32px] hidden sm:flex">
           <NavLink to={"/home"}>Home</NavLink>
-          <NavLink to={"/profile"}>Profile</NavLink>
+          <NavLink to={"/home/profile"}>Profile</NavLink>
           <div className="rounded-full w-12 h-12 bg-white" />
         </div>
         <div className="md:hidden">
@@ -59,7 +59,9 @@ function Navbar() {
             <NavLink to={"/profile"} className="py-2 tracking-widest">
               Profile
             </NavLink>
-            <NavLink to={"/leaderboard"} className="py-2 tracking-widest">Leaderboard</NavLink>
+            <NavLink to={"/leaderboard"} className="py-2 tracking-widest">
+              Leaderboard
+            </NavLink>
           </ul>
         </div>
       )}

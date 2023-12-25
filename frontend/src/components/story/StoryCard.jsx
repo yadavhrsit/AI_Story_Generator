@@ -1,14 +1,61 @@
 import React from "react";
 import { secondary } from "../../colors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart, faShare } from "@fortawesome/free-solid-svg-icons";
+import {
+  faHeart as solidHeart,
+  faShare,
+} from "@fortawesome/free-solid-svg-icons";
+import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
 import { Link, useLocation } from "react-router-dom";
+import api from "../../assets/api";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 function StoryCard({ data }) {
   const location = useLocation();
-  console.log(location);
+  const token = localStorage.getItem("jwtToken");
+  const queryClient = useQueryClient();
+
+  const likeStory = async (storyId) => {
+    try {
+      const result = await axios.post(
+        `${api}/story/likestory/${storyId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return result;
+    } catch (error) {
+      console.error("Error liking story:", error);
+    }
+  };
+  const mutation = useMutation({
+    mutationFn: likeStory,
+    onSuccess: ({data}) => {
+      Swal.fire({
+        toast: true,
+        icon: data === "Liked" ? "success" : "error",
+        title: data,
+        position: "bottom",
+        showConfirmButton: false,
+        timer: 1100,
+        showClass: {
+          popup: "swal2-noanimation",
+        },
+      }).then(() => {
+        queryClient.invalidateQueries("stories")
+        queryClient.invalidateQueries("leaderboard")
+      });
+    },
+  });
+
+
   return (
-    <div className="w-full pb-4 bg-[#00000048] font-[magra] rounded-lg">
+    <div className="w-full h-fit pb-4 bg-[#00000048] font-[magra] rounded-lg">
       <div className="md:flex md:justify-between md:w-full">
         <div
           className={`bg-[${secondary}] px-2 pb-2 rounded-tl-md md:w-fit md:pb-0 md:h-fit`}
@@ -65,7 +112,17 @@ function StoryCard({ data }) {
         <div className="flex gap-2">
           {location.pathname !== "/home/mystories" && (
             <button className={`bg-[${secondary}] px-2 py-[2px] rounded`}>
-              <FontAwesomeIcon icon={faHeart} />
+              {data.liked ? (
+                <FontAwesomeIcon
+                  icon={solidHeart}
+                  onClick={() => mutation.mutate(data._id)}
+                />
+              ) : (
+                <FontAwesomeIcon
+                  icon={regularHeart}
+                  onClick={() => mutation.mutate(data._id)}
+                />
+              )}
             </button>
           )}
 

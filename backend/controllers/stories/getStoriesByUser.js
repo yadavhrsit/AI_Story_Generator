@@ -5,7 +5,7 @@ async function getStoriesByUser(req, res) {
     const page = parseInt(req.query.page) || 1;
     const limit = 9;
     const skip = (page - 1) * limit;
-    const userId = new mongoose.Types.ObjectId(req.body.userId);
+    const userId = new mongoose.Types.ObjectId(req.params.userId.id);
     const stories = await Story.find({userId:userId})
       .sort({ createdAt: -1 })
       .skip(skip)

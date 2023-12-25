@@ -22,13 +22,54 @@ function StoriesPage() {
     return result.data;
   };
 
-  const { data, isFetched, isError, isFetching } = useQuery({
+  const { data, isSuccess, isLoading, error, failureReason } = useQuery({
     queryKey: ["stories"],
     queryFn: getStories,
-    staleTime: Infinity,
+    staleTime: 60000,
+    refetchInterval: 30000,
+    retry: false,
   });
   
-  
+  if (isLoading) {
+    Swal.fire({
+      title: "Loading Stories!",
+      showConfirmButton: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+  }
+
+  if (error) {
+    if (failureReason.response.status === 401){
+      Swal.fire({
+        title: "Error loading Stories!",
+        text: failureReason.response.data.error,
+        footer: "Redirecting to login...",
+        showConfirmButton: false,
+        icon: "error",
+        timer: 4000,
+      });
+      Swal.close();
+      navigate("/login");
+    }
+    else{
+      Swal.fire({
+        title: "Error loading Stories!",
+        text: "Server error",
+        footer: "Try after sometime",
+        showConfirmButton: false,
+        icon: "error",
+        timer: 4000,
+      });
+      Swal.close();
+      navigate("/login");
+    }
+  }
+
+  if (isSuccess) {
+    Swal.close();
+  }
   
 
   return (
@@ -51,9 +92,9 @@ function StoriesPage() {
 
       <div className="flex gap-2 w-full flex-col md:flex-row">
         <div className="inline-flex gap-3 flex-wrap justify-between py-8 md:flex-1">
-          {isFetched &&
+          {isSuccess &&
             data?.map((storyData, index) => {
-              if (index % 2 !== 0) {
+              if (index % 2 === 0) {
                 return <StoryCard key={index} data={storyData}></StoryCard>;
               }
               return null;
@@ -61,9 +102,9 @@ function StoriesPage() {
         </div>
 
         <div className="inline-flex gap-3 flex-wrap justify-between py-8 md:flex-1">
-          {isFetched &&
+          {isSuccess &&
             data?.map((storyData, index) => {
-              if (index % 2 === 0) {
+              if (index % 2 !== 0) {
                 return <StoryCard key={index} data={storyData}></StoryCard>;
               }
               return null;

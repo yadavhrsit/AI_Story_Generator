@@ -6,10 +6,11 @@ import api from "../assets/api";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import StoryCard from "../components/story/StoryCard";
+
 
 function StoryPage() {
   const {id} = useParams();
+  const navigate = useNavigate();
 
   const token = localStorage.getItem("jwtToken");
 
@@ -22,11 +23,51 @@ function StoryPage() {
     return result.data;
   };
 
-  const { data, isFetched, isError, isFetching } = useQuery({
-    queryKey: ["story"],
+  const { data, isSuccess, isLoading, error, failureReason } = useQuery({
+    queryKey: [`story${id}`],
     queryFn: getStory,
-    refetchOnMount:"always",
+    staleTime:Infinity
   });
+
+  if (isLoading) {
+    Swal.fire({
+      title: "Loading Stories!",
+      showConfirmButton: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+  }
+
+  if (error) {
+    if (failureReason.response.status === 401) {
+      Swal.fire({
+        title: "Error loading Story!",
+        text: failureReason.response.data.error,
+        footer: "Redirecting to login...",
+        showConfirmButton: false,
+        icon: "error",
+        timer: 4000,
+      });
+      Swal.close();
+      navigate("/login");
+    } else {
+      Swal.fire({
+        title: "Error loading Story!",
+        text: "Server error",
+        footer: "Try after sometime",
+        showConfirmButton: false,
+        icon: "error",
+        timer: 4000,
+      });
+      Swal.close();
+      navigate("/login");
+    }
+  }
+
+  if (isSuccess) {
+    Swal.close();
+  }
 
   return (
     <div
@@ -46,7 +87,7 @@ function StoryPage() {
         </div>
       </div>
       <div className="py-8 w-9/10 ">
-        {isFetched && <p className=" font-sans text-2xl">{data.content}{data.content}</p>}  
+        {isLoading && <p className=" font-sans text-2xl">{data.content}{data.content}</p>}  
       </div>
     </div>
   );

@@ -3,7 +3,6 @@ import { primary, secondary } from "../../colors";
 import { Link } from "react-router-dom";
 import api from "../../assets/api";
 import axios from "axios";
-import ScaleLoader from "react-spinners/ClipLoader";
 import { useMutation } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";

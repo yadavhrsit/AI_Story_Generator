@@ -9,6 +9,7 @@ import Layout from "./components/Layout";
 import GenerateStory from "./components/story/GenerateStory";
 import GeneratedStory from "./components/story/GeneratedStory";
 import StoryPage from "./pages/StoryPage";
+import LeaderBoard from "./components/leaderboard/LeaderBoard";
 
 function App() {
 
@@ -17,7 +18,6 @@ function App() {
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
         <Route path="/" element={<Navigate to={"/home"} replace />}></Route>
         <Route path="/home" element={<Layout />}>
           <Route
@@ -30,6 +30,8 @@ function App() {
             <Route path="mystories" element={<MyStoriesPage />} />
             <Route path="generate" element={<GenerateStory />} />
             <Route path="generated" element={<GeneratedStory />} />
+            <Route path="leaderboard" element={<LeaderBoard />} />
+            <Route path="profile" element={<ProfilePage />} />
           </Route>
         </Route>
       </Routes>

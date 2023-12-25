@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const storySchema = new mongoose.Schema({
   title: {
@@ -23,21 +23,29 @@ const storySchema = new mongoose.Schema({
   },
   time: {
     type: String,
-    default: '2 min read',
+    default: "2 min read",
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    ref: "User",
     required: true,
   },
-  user:{
+  user: {
     type: String,
     required: true,
     minlength: 5,
     maxlength: 30,
-  }
-});
+  },
+  likes: [
+    {
+      userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    },
+  ],
+},{ timestamps: true });
 
-const Story = mongoose.model('Story', storySchema);
+const Story = mongoose.model("Story", storySchema);
 
 export default Story;

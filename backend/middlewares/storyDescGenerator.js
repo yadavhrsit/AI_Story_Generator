@@ -9,7 +9,7 @@ async function generateDesc(story) {
     authClient: new GoogleAuth().fromAPIKey(API_KEY),
   });
 
-  const promptString = `Write a Summary on the Following Story - ${story}`;
+  const promptString = `Write a short Summary on the Following Story - ${story}`;
   const stopSequences = [];
 
   try {
