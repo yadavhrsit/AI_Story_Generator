@@ -31,6 +31,9 @@ import authRouter from './routes/authRoutes.js';
 import storyRouter from './routes/storyRoutes.js';
 app.use('/auth', authRouter);
 app.use('/story', storyRouter);
+app.get('/', ()=>{
+    res.status(200).json("Server Running");
+});
 
 mongoose.connect(process.env.DB).then(() => {
     console.log("MongoDB Connected");
