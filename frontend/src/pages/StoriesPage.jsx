@@ -49,9 +49,10 @@ function StoriesPage() {
         showConfirmButton: false,
         icon: "error",
         timer: 4000,
+      }).then(() => {
+        Swal.close();
+        navigate("/login");
       });
-      Swal.close();
-      navigate("/login");
     }
     else{
       Swal.fire({
@@ -61,9 +62,10 @@ function StoriesPage() {
         showConfirmButton: false,
         icon: "error",
         timer: 4000,
-      });
-      Swal.close();
-      navigate("/login");
+      }).then(()=>{
+        Swal.close();
+        navigate("/login");
+      })
     }
   }
 

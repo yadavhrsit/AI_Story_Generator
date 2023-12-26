@@ -29,13 +29,6 @@ function LeaderBoard() {
   });
 
 
-  if (error) {
-    if (failureReason.response.status === 401) {
-      navigate("/login");
-    } else {
-      console.log(error)
-    }
-  }
 
   return (
     <div

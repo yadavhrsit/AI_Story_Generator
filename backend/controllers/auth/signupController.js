@@ -28,7 +28,7 @@ const signUp = async (req, res) => {
 
     let createdUser = await newUser.save();
     const token = createToken(createdUser._id);
-    res.cookie('jwt', token, { httpOnly: true, maxAge: process.env.MAXAGE * 1000 });
+    res.cookie("jwt", token, { httpOnly: true, maxAge: 1671504000 });
     res.status(201).json({ message: "User registered successfully", user: createdUser._id });
   } catch (error) {
     console.error(error);
