@@ -1,45 +1,51 @@
-import { TextServiceClient } from "@google-ai/generativelanguage";
-import { GoogleAuth } from "google-auth-library";
+import {
+  GoogleGenerativeAI,
+  HarmCategory,
+  HarmBlockThreshold,
+} from "@google/generative-ai";
 
-const MODEL_NAME = "models/text-bison-001";
+const MODEL_NAME = "gemini-pro";
 const API_KEY = "AIzaSyDBrpKkVxCsNigxEIHy1gphPDZMUMGU-5U";
 
 async function generateDesc(story) {
-  const client = new TextServiceClient({
-    authClient: new GoogleAuth().fromAPIKey(API_KEY),
+  const genAI = new GoogleGenerativeAI(API_KEY);
+  const model = genAI.getGenerativeModel({ model: MODEL_NAME });
+  const generationConfig = {
+    temperature: 0.9,
+    topK: 1,
+    topP: 1,
+    maxOutputTokens: 2048,
+  };
+
+  const safetySettings = [
+    {
+      category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+    },
+    {
+      category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+    },
+    {
+      category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+    },
+    {
+      category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+    },
+  ];
+
+  const parts = [{ text: `give a short summary to this story - ${story}` }];
+
+  const result = await model.generateContent({
+    contents: [{ role: "user", parts }],
+    generationConfig,
+    safetySettings,
   });
 
-  const promptString = `Write a short Summary on the Following Story - ${story}`;
-  const stopSequences = [];
-
-  try {
-    const result = await client.generateText({
-      model: MODEL_NAME,
-      temperature: 0.7,
-      candidateCount: 1,
-      top_k: 40,
-      top_p: 0.95,
-      max_output_tokens: 1024,
-      stop_sequences: stopSequences,
-      safety_settings: [
-        { category: "HARM_CATEGORY_DEROGATORY", threshold: 1 },
-        { category: "HARM_CATEGORY_TOXICITY", threshold: 1 },
-        { category: "HARM_CATEGORY_VIOLENCE", threshold: 2 },
-        { category: "HARM_CATEGORY_SEXUAL", threshold: 2 },
-        { category: "HARM_CATEGORY_MEDICAL", threshold: 2 },
-        { category: "HARM_CATEGORY_DANGEROUS", threshold: 2 },
-      ],
-      prompt: {
-        text: promptString,
-      },
-    });
-    const desc = JSON.stringify(result[0].candidates[0].output, null, 2);
-    return desc;
-  } catch (error) {
-    console.error(error); 
-    throw error; 
-  }
+  const response = result.response;
+  return response.text();
 }
 
 export default generateDesc;
-

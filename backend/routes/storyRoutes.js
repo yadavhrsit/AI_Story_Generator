@@ -1,6 +1,8 @@
 import express from "express";
 const storyRouter = express.Router();
 
+import requireAuth from "../middlewares/authMiddleware.js";
+
 import generateStory from "../controllers/stories/generateStory.js";
 import addStory from "../controllers/stories/addStory.js";
 import deleteStory from "../controllers/stories/deleteStory.js";
@@ -8,7 +10,6 @@ import getStory from "../controllers/stories/getStory.js";
 import getStories from "../controllers/stories/getStories.js";
 import getStoriesByUser from "../controllers/stories/getStoriesByUser.js";
 import likeOrUnlikeStory from "../controllers/stories/likeOrUnlikeStory.js";
-import requireAuth from "../middlewares/authMiddleware.js";
 import leaderboard from "../controllers/stories/leaderboard.js";
 
 storyRouter.post("/genstory", requireAuth, generateStory);

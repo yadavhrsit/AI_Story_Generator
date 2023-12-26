@@ -56,7 +56,7 @@ function LeaderBoard() {
                 user={storyData.user}
                 date={storyData.date}
                 title={storyData.title}
-                id={storyData._id}
+                id={storyData.id}
                 numberOfLikes={storyData.numberOfLikes}
               ></LeaderBoardCard>
             );

@@ -2,6 +2,10 @@ import React from 'react'
 import { primary,secondary } from '../../colors'
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faHeart as solidHeart,
+} from "@fortawesome/free-solid-svg-icons";
 
 function LeaderBoardCard({ title, date, user, numberOfLikes,id }) {
   const location = useLocation();
@@ -17,13 +21,14 @@ function LeaderBoardCard({ title, date, user, numberOfLikes,id }) {
           <div className="flex gap-2 w-full text-xs">
             <div className="bg-white rounded-full w-[30px] h-[30px]" />
             <div className="flex w-fit max-w-[80%] flex-col">
-              <p className="uppercase w-fit text-center">{user.fullname}</p>
+              <p className="uppercase w-fit text-center">{user}</p>
               <p className="uppercase w-fit text-left">{date}</p>
             </div>
             <button
-              className={`capitalize bg-[${primary}] ml-auto px-2 py-1 rounded-[4px] w-fit`}
+              className={`capitalize bg-[${primary}] cursor-default mx-1 ml-auto px-2 py-1 rounded-[4px] w-fit`}
             >
               {numberOfLikes}
+              <FontAwesomeIcon icon={solidHeart} className="mx-1" />
             </button>
           </div>
         </div>

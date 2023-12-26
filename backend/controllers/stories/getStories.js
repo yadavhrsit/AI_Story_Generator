@@ -23,8 +23,8 @@ async function getStories(req, res) {
       return {
         ...story._doc,
         liked,
-        date: formattedDate,
-        time: formattedTime,
+        date_created: formattedDate,
+        time_created: formattedTime,
       };
     });
 

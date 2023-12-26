@@ -71,13 +71,13 @@ function StoryPage() {
 
   return (
     <div
-      className={`w-full md:max-h-[calc(100vh-115px)] md:overflow-y-auto p-0 rounded-lg bg-[${primary}] lg:py-4 lg:px-8 lg:rounded-2xl`}
+      className={`w-full md:max-h-[calc(100vh-115px)] md:overflow-y-auto p-0 rounded-lg bg-[${primary}] lg:py-0 lg:px-8 lg:rounded-2xl`}
     >
       <div
-        className={`w-full sticky top-[60px] rounded-md bg-[${primary}] p-2 sm:static flex justify-between items-center`}
+        className={`w-full sticky top-[60px] rounded-md bg-[${primary}] p-2 lg:mt-4 sm:static flex justify-between items-center`}
       >
         <p className="text-[26px] sm:text-4xl">Stories</p>
-        <div className="flex gap-2 sm:gap-6 md:gap-12 sm:text-lg md:text-2xl md:tracking-wider font-[magra]">
+        <div className="flex gap-2 sm:gap-6 md:gap-12 sm:text-lg md:text-2xl md:tracking-wider font-[magra] uppercase font-semibold">
           <p className={`py-2 px-3 bg-[${secondary}] rounded-md`}>
             <Link to={"/home/mystories"}>My Stories</Link>
           </p>
@@ -87,7 +87,17 @@ function StoryPage() {
         </div>
       </div>
       <div className="py-8 w-9/10 ">
-        {isLoading && <p className=" font-sans text-2xl">{data.content}{data.content}</p>}  
+        {isSuccess && (
+          <>
+            <div
+              className={`font-sans text-4xl text-center sticky top-0 rounded-b-lg bg-[${secondary}]`}
+            >
+              <p className={`py-4`}>{data.title}</p>
+              <div className={`bg-[${primary}] p-2 mt-2`} />
+            </div>
+            <p className=" font-sans text-2xl mt-4">{data.content}</p>
+          </>
+        )}
       </div>
     </div>
   );

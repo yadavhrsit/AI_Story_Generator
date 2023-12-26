@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const createToken = (id) => {
-    return jwt.sign({ id }, process.env.SECRET, { expiresIn: process.env.MAXAGE });
+    return jwt.sign({ id }, process.env.SECRET, { expiresIn: 1671504000 });
 };
 
 export default createToken;

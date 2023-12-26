@@ -80,7 +80,7 @@ function StoriesPage() {
         className={`w-full sticky top-[60px] rounded-md bg-[${primary}] p-2 sm:static flex justify-between items-center`}
       >
         <p className="text-[26px] sm:text-4xl">Stories</p>
-        <div className="flex gap-2 sm:gap-6 md:gap-12 sm:text-lg md:text-2xl md:tracking-wider font-[magra]">
+        <div className="flex gap-2 sm:gap-6 md:gap-12 sm:text-lg md:text-2xl md:tracking-wider font-[magra] uppercase font-semibold">
           <p className={`py-2 px-3 bg-[${secondary}] rounded-md`}>
             <Link to={"/home/mystories"}>My Stories</Link>
           </p>

@@ -8,7 +8,7 @@ import { useMutation } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 
 function ProfilePage() {
-
+    const token = localStorage.getItem("jwtToken");
     const {
       register,
       handleSubmit,
@@ -17,7 +17,11 @@ function ProfilePage() {
 
     const mutation = useMutation({
       mutationFn: (newUser) => {
-        return axios.post(`${api}/auth/profile`, newUser);
+        return axios.post(`${api}/auth/profile`, newUser, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
       },
       onMutate: () => {
         Swal.fire({
@@ -56,7 +60,7 @@ function ProfilePage() {
     >
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="font-medium h-fit w-4/5 sm:w-1/2 xl:w-1/4 m-auto sm:m-0 p-2 sm:p-6 relative"
+        className="font-medium font-[magra] text-lg sm:text-xl h-fit w-4/5 sm:w-1/2 xl:w-1/4 m-auto sm:m-0 p-2 sm:p-6 relative"
       >
         <div className="mt-2 w-full">
           <label className="block">Full Name</label>
