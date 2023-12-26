@@ -151,7 +151,7 @@ function LoginPage() {
             </div>
             <button
               type="submit"
-              className={`bg-[${secondary}] mt-8 px-4 py-2 rounded-lg`}
+              className={`bg-[#4F709C] mt-8 px-4 py-2 rounded-lg`}
             >
               {mutation.isPending ? <ScaleLoader color="#ffffff" /> : "Login"}
             </button>
