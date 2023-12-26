@@ -22,7 +22,7 @@ function StoriesPage() {
     return result.data;
   };
 
-  const { data, isSuccess, isLoading, error, failureReason } = useQuery({
+  const { data, isSuccess, isLoading, error, failureReason,isLoadingError } = useQuery({
     queryKey: ["stories"],
     queryFn: getStories,
     staleTime: 60000,
@@ -40,32 +40,31 @@ function StoriesPage() {
     });
   }
 
-  if (error) {
-    if (failureReason.response.status === 401){
+  if (error || isLoadingError) {
+    if (failureReason.response.status === 401) {
       Swal.fire({
         title: "Error loading Stories!",
         text: failureReason.response.data.error,
         footer: "Redirecting to login...",
         showConfirmButton: false,
         icon: "error",
-        timer: 4000,
+        timer: 3000,
       }).then(() => {
         Swal.close();
         navigate("/login");
       });
-    }
-    else{
+    } else {
       Swal.fire({
         title: "Error loading Stories!",
         text: "Server error",
         footer: "Try after sometime",
         showConfirmButton: false,
         icon: "error",
-        timer: 4000,
-      }).then(()=>{
+        timer: 3000,
+      }).then(() => {
         Swal.close();
         navigate("/login");
-      })
+      });
     }
   }
 
