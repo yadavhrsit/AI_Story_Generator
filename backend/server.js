@@ -11,6 +11,9 @@ const PORT = process.env.PORT || 8100;
 app.use(express.json());
 app.use(cookieParser());
 
+const allowedOrigin = "https://ai-story-generator-pied.vercel.app";
+
+app.use(cors({ origin: allowedOrigin }));
 
 app.get('/', (req, res) => {
     res.send('Server is Running');
