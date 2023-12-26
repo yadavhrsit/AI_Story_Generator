@@ -6,7 +6,7 @@ import {
 
 
 const MODEL_NAME = "gemini-pro";
-const API_KEY = "AIzaSyDBrpKkVxCsNigxEIHy1gphPDZMUMGU-5U";
+const API_KEY = process.env.API_KEY;
 
 async function generateStory(prompt, tags) {
   const genAI = new GoogleGenerativeAI(API_KEY);

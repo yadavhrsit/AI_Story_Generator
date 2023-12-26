@@ -5,7 +5,7 @@ import {
 } from "@google/generative-ai";
 
 const MODEL_NAME = "gemini-pro";
-const API_KEY = "AIzaSyDBrpKkVxCsNigxEIHy1gphPDZMUMGU-5U";
+const API_KEY = process.env.API_KEY;
 
 async function generateDesc(story) {
   const genAI = new GoogleGenerativeAI(API_KEY);

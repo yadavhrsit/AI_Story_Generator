@@ -5,7 +5,7 @@ import {
 } from "@google/generative-ai";
 
 const MODEL_NAME = "gemini-pro";
-const API_KEY = "AIzaSyDBrpKkVxCsNigxEIHy1gphPDZMUMGU-5U";
+const API_KEY = process.env.API_KEY;
 
 async function generateTitle(story) {
   const genAI = new GoogleGenerativeAI(API_KEY);
@@ -36,7 +36,7 @@ async function generateTitle(story) {
     },
   ];
 
-  const parts = [{ text: `give a short title to this story - ${story}` }];
+  const parts = [{ text: `give a short title not more than 5 words to this story - ${story}` }];
 
   const result = await model.generateContent({
     contents: [{ role: "user", parts }],
