@@ -43,7 +43,7 @@ function StoriesPage() {
   if (error || isLoadingError) {
     if (failureReason.response.status === 401) {
       Swal.fire({
-        title: "Error loading Stories!",
+        title: "Login error!",
         text: failureReason.response.data.error,
         footer: "Redirecting to login...",
         showConfirmButton: false,

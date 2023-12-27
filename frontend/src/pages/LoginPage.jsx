@@ -1,16 +1,20 @@
-import React from "react";
-import { primary, secondary } from "../colors";
-import img from "../assets/bg.png";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import api from "../assets/api";
-import axios from "axios";
-import ScaleLoader from "react-spinners/ClipLoader";
 import { useMutation } from "@tanstack/react-query";
-import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
+import Swal from "sweetalert2";
+import ScaleLoader from "react-spinners/ClipLoader";
+
+import { primary } from "../colors";
+import img from "../assets/bg.png";
+import api from "../assets/api";
 
 function LoginPage() {
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const {
     register,
@@ -54,6 +58,10 @@ function LoginPage() {
 
   const onSubmit = (data) => {
     mutation.mutate({ ...data });
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -112,10 +120,10 @@ function LoginPage() {
                 </p>
               )}
             </div>
-            <div className="mt-2 w-full">
+            <div className="mt-2 w-full relative">
               <label className="block">Password</label>
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 name="password"
                 height={"60px"}
                 className={`px-2 py-2 mt-1 w-full rounded-lg bg-white text-black ${
@@ -131,6 +139,11 @@ function LoginPage() {
                       ),
                   },
                 })}
+              />
+              <FontAwesomeIcon
+                icon={showPassword ? faEyeSlash : faEye}
+                className={`mx-1 cursor-pointer absolute text-[#4f709c] right-2 bottom-3`}
+                onClick={togglePasswordVisibility}
               />
               {errors.password?.type === "required" && (
                 <p className="errorMsg text-red-500 text-sm mt-1">

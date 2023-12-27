@@ -1,21 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
+import Swal from "sweetalert2";
+import ScaleLoader from "react-spinners/ClipLoader";
+
 import { primary, secondary } from "../colors";
 import img from "../assets/bg.png";
-import { useForm } from "react-hook-form";
-import api from '../assets/api';
-import axios from "axios";
-import ScaleLoader from "react-spinners/ClipLoader";
-import { useMutation } from "@tanstack/react-query";
-import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import api from "../assets/api";
+
 function SignupPage() {
   const navigate = useNavigate();
-
-   const {
-     register,
-     handleSubmit,
-     formState: { errors },
-   } = useForm();
+  const [showPassword, setShowPassword] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const mutation = useMutation({
     mutationFn: (newUser) => {
@@ -30,27 +34,31 @@ function SignupPage() {
         },
       });
     },
-    onSuccess: async()=>{
+    onSuccess: async () => {
       Swal.fire({
         title: "Success!",
         text: "User Registered !",
         icon: "success",
-        showConfirmButton:false,
-        timer:1500,
+        showConfirmButton: false,
+        timer: 1500,
         confirmButtonColor: primary,
       }).then(() => navigate("/login"));
     },
-    onError: async(error)=>{
-       Swal.fire({
-         title: "Error!",
-         text: error.response.data.message,
-         icon: "error",
-       });
-    }
+    onError: async (error) => {
+      Swal.fire({
+        title: "Error!",
+        text: error.response.data.message,
+        icon: "error",
+      });
+    },
   });
 
-  const onSubmit= (data) => {
+  const onSubmit = (data) => {
     mutation.mutate({ ...data });
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -131,7 +139,7 @@ function SignupPage() {
                 </p>
               )}
             </div>
-            <div className="mt-2 w-full">
+            <div className="mt-2 w-full relative">
               <label className="block">Password</label>
               <input
                 type="password"
@@ -148,6 +156,11 @@ function SignupPage() {
                       ),
                   },
                 })}
+              />
+              <FontAwesomeIcon
+                icon={showPassword ? faEyeSlash : faEye}
+                className={`mx-1 cursor-pointer absolute text-[#4f709c] right-2 bottom-3`}
+                onClick={togglePasswordVisibility}
               />
               {errors.password?.type === "required" && (
                 <p className="errorMsg text-red-500 text-sm mt-1">
@@ -175,7 +188,9 @@ function SignupPage() {
 
             <p className="mt-3 h-fit w-fit">
               Already Registered ?<br />
-              <a href="/login" className="underline underline-offset-4">Login</a>
+              <a href="/login" className="underline underline-offset-4">
+                Login
+              </a>
             </p>
             <img
               src={img}

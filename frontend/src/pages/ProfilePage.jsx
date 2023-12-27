@@ -1,59 +1,60 @@
-import React from 'react'
-import { primary, secondary } from "../colors";
+import React from "react";
 import { useForm } from "react-hook-form";
-import api from "../assets/api";
-import axios from "axios";
-import ScaleLoader from "react-spinners/ClipLoader";
 import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 import Swal from "sweetalert2";
+import ScaleLoader from "react-spinners/ClipLoader";
+
+import { primary, secondary } from "../colors";
+import api from "../assets/api";
 
 function ProfilePage() {
-    const token = localStorage.getItem("jwtToken");
-    const {
-      register,
-      handleSubmit,
-      formState: { errors },
-    } = useForm();
+  const token = localStorage.getItem("jwtToken");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-    const mutation = useMutation({
-      mutationFn: (newUser) => {
-        return axios.post(`${api}/auth/profile`, newUser, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-      },
-      onMutate: () => {
-        Swal.fire({
-          title: "Updating...",
-          showConfirmButton: false,
-          didOpen: () => {
-            Swal.showLoading();
-          },
-        });
-      },
-      onSuccess: async () => {
-        Swal.fire({
-          title: "Success!",
-          text: "User Details Updated !",
-          icon: "success",
-          showConfirmButton: false,
-          timer: 1500,
-          confirmButtonColor: primary,
-        })
-      },
-      onError: async (error) => {
-        Swal.fire({
-          title: "Error!",
-          text: error.response.data.message,
-          icon: "error",
-        });
-      },
-    });
+  const mutation = useMutation({
+    mutationFn: (newUser) => {
+      return axios.post(`${api}/auth/profile`, newUser, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    },
+    onMutate: () => {
+      Swal.fire({
+        title: "Updating...",
+        showConfirmButton: false,
+        didOpen: () => {
+          Swal.showLoading();
+        },
+      });
+    },
+    onSuccess: async () => {
+      Swal.fire({
+        title: "Success!",
+        text: "User Details Updated !",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1500,
+        confirmButtonColor: primary,
+      });
+    },
+    onError: async (error) => {
+      Swal.fire({
+        title: "Error!",
+        text: error.response.data.message,
+        icon: "error",
+      });
+    },
+  });
 
-    const onSubmit = (data) => {
-      mutation.mutate({ ...data });
-    };
+  const onSubmit = (data) => {
+    mutation.mutate({ ...data });
+  };
   return (
     <div
       className={`w-full md:max-h-[calc(100vh-115px)] md:overflow-y-auto p-0 rounded-lg bg-[${primary}] lg:py-4 lg:px-8 lg:rounded-2xl`}
@@ -198,4 +199,4 @@ function ProfilePage() {
   );
 }
 
-export default ProfilePage
+export default ProfilePage;

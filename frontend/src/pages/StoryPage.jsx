@@ -1,15 +1,14 @@
 import React from "react";
-import { primary, secondary } from "../colors";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams,useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import api from "../assets/api";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
 
+import { primary, secondary } from "../colors";
+import api from "../assets/api";
 
 function StoryPage() {
-  const {id} = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const token = localStorage.getItem("jwtToken");
@@ -26,7 +25,7 @@ function StoryPage() {
   const { data, isSuccess, isLoading, error, failureReason } = useQuery({
     queryKey: [`story${id}`],
     queryFn: getStory,
-    staleTime:Infinity
+    staleTime: Infinity,
   });
 
   if (isLoading) {

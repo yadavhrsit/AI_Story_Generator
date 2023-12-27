@@ -1,11 +1,13 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import api from "../../assets/api";
 import axios from "axios";
 import ScaleLoader from "react-spinners/ClipLoader";
-import { useNavigate,useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+
 import LeaderBoardCard from "./LeaderBoardCard";
 import { primary } from "../../colors";
+import api from "../../assets/api";
+
 function LeaderBoard() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -27,8 +29,6 @@ function LeaderBoard() {
     refetchInterval: 30000,
     retry: false,
   });
-
-
 
   return (
     <div

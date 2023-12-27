@@ -1,13 +1,10 @@
-import React from 'react'
-import { primary,secondary } from '../../colors'
-import { useLocation } from "react-router-dom";
-import { Link } from "react-router-dom";
+import React from "react";
+import { primary, secondary } from "../../colors";
+import { useLocation, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faHeart as solidHeart,
-} from "@fortawesome/free-solid-svg-icons";
+import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 
-function LeaderBoardCard({ title, date, user, numberOfLikes,id }) {
+function LeaderBoardCard({ title, date, user, numberOfLikes, id }) {
   const location = useLocation();
   return (
     <Link to={`/home/story/${id}`}>
@@ -37,4 +34,4 @@ function LeaderBoardCard({ title, date, user, numberOfLikes,id }) {
   );
 }
 
-export default LeaderBoardCard
+export default LeaderBoardCard;

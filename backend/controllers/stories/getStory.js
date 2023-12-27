@@ -9,7 +9,6 @@ async function getStory(req, res) {
     if (!story) {
       return res.status(404).json({ error: 'Story not found' });
     }
-    console.log(story)
     res.status(200).json(story);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch the story' });

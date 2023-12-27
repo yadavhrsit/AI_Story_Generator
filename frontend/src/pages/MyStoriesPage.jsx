@@ -1,11 +1,11 @@
 import React from "react";
-import { primary, secondary } from "../colors";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import api from "../assets/api";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+
+import { primary, secondary } from "../colors";
+import api from "../assets/api";
 import StoryCard from "../components/story/StoryCard";
 
 function MyStoriesPage() {
@@ -88,7 +88,7 @@ function MyStoriesPage() {
       </div>
 
       <div className="flex gap-2 w-full flex-col md:flex-row">
-        {data&& data.length === 0 ? (
+        {data && data.length === 0 ? (
           <p className="text-4xl m-auto my-20 text-center">
             You have'nt posted any Stories yet.{" "}
           </p>

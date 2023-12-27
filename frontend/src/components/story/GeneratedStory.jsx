@@ -1,17 +1,19 @@
-import React,{useState} from "react";
-import { primary, secondary } from "../../colors";
-import api from "../../assets/api";
-import { useLocation } from "react-router-dom";
-import { useMutation,useQueryClient } from "@tanstack/react-query";
+import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+
+import { primary, secondary } from "../../colors";
+import api from "../../assets/api";
 
 function GeneratedStory() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [responseData, setresponseData] = useState(location.state && location.state.responseData)
-  const [prompt, setprompt] = useState(location.state && location.state.prompt)
+  const [responseData, setresponseData] = useState(
+    location.state && location.state.responseData
+  );
+  const [prompt, setprompt] = useState(location.state && location.state.prompt);
 
   const token = localStorage.getItem("jwtToken");
   const queryClient = useQueryClient();
@@ -45,8 +47,8 @@ function GeneratedStory() {
         confirmButtonColor: primary,
       })
         .then(() => {
-          queryClient.invalidateQueries("stories")
-          queryClient.invalidateQueries("mystories")
+          queryClient.invalidateQueries("stories");
+          queryClient.invalidateQueries("mystories");
         })
         .then(() =>
           navigate("/home", {
@@ -63,17 +65,14 @@ function GeneratedStory() {
     },
   });
 
-  
-
-  const handlePostStory = () =>{
+  const handlePostStory = () => {
     postStoryMutation.mutate({
       title: responseData.title,
       tags: prompt.tags,
       description: responseData.description,
       content: responseData.content,
     });
-  }
-  
+  };
 
   return (
     <div
@@ -81,18 +80,22 @@ function GeneratedStory() {
     >
       <p className="text-white">Here's the Story you wished for</p>
       <div className="bg-white p-4 h-full overflow-y-auto rounded-lg mt-4 text-black">
-        {responseData.content}        
+        {responseData.content}
       </div>
       <div className="w-full flex justify-end gap-4 text-base">
         <button
           className={`bg-[${secondary}] text-white px-4 py-2 mt-8 rounded-lg grow md:grow-0`}
-          onClick={() => {navigate("/home/generate")}}
+          onClick={() => {
+            navigate("/home/generate");
+          }}
         >
           Wish Another
         </button>
         <button
           className={`bg-[${secondary}] text-white px-2 md:px-6 py-0 mt-8 rounded-lg grow md:grow-0`}
-          onClick={() => {handlePostStory()}}
+          onClick={() => {
+            handlePostStory();
+          }}
         >
           Post
         </button>

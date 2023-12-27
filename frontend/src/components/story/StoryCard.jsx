@@ -7,10 +7,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
 import { Link, useLocation } from "react-router-dom";
-import api from "../../assets/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import Swal from "sweetalert2";
+import api from "../../assets/api";
 
 function StoryCard({ data }) {
   const location = useLocation();
@@ -35,7 +35,7 @@ function StoryCard({ data }) {
   };
   const mutation = useMutation({
     mutationFn: likeStory,
-    onSuccess: ({data}) => {
+    onSuccess: ({ data }) => {
       Swal.fire({
         toast: true,
         icon: data === "Liked" ? "success" : "error",
@@ -47,12 +47,11 @@ function StoryCard({ data }) {
           popup: "swal2-noanimation",
         },
       }).then(() => {
-        queryClient.invalidateQueries("stories")
-        queryClient.invalidateQueries("leaderboard")
+        queryClient.invalidateQueries("stories");
+        queryClient.invalidateQueries("leaderboard");
       });
     },
   });
-
 
   return (
     <div className="w-full h-fit pb-4 bg-[#00000048] font-[magra] rounded-lg">
@@ -62,7 +61,12 @@ function StoryCard({ data }) {
         >
           <p className="py-1 text-2xl uppercase font-semibold">{data.title}</p>
           <div className="flex gap-2 md:hidden">
-            <div className="rounded-full bg-white w-[35px] h-[35px] mt-1" />
+            <div className="rounded-full w-[35px] h-[35px] mt-1">
+              {data.user
+                .split(" ")
+                .map((name) => name.charAt(0))
+                .join("")}
+            </div>
             <div className="flex flex-col text-sm">
               <p>{data.user}</p>
               <div className="flex gap-8">
@@ -81,7 +85,14 @@ function StoryCard({ data }) {
                 <p>{data.time_created ? data.time_created : ""}</p>
               </div>
             </div>
-            <div className="rounded-full w-10 h-10 bg-white" />
+            <div className="rounded-full flex items-center justify-center bg-white w-[35px] h-[35px] mt-1">
+              <p className="uppercase text-black font-semibold">
+                {data.user
+                  .split(" ")
+                  .map((name) => name.charAt(0))
+                  .join("")}
+              </p>
+            </div>
           </div>
         </div>
       </div>

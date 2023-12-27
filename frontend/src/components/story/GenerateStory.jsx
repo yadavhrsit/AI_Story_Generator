@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { primary, secondary } from "../../colors";
-import { Link } from "react-router-dom";
-import api from "../../assets/api";
-import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+
+import { primary, secondary } from "../../colors";
+import api from "../../assets/api";
 
 function GenerateStory() {
   const navigate = useNavigate();
@@ -39,8 +39,8 @@ function GenerateStory() {
         text: "Hold on we are generating your story!",
         showConfirmButton: false,
         didOpen: () => {
-        Swal.showLoading();
-        }
+          Swal.showLoading();
+        },
       });
     },
 
@@ -81,7 +81,7 @@ function GenerateStory() {
   });
 
   const handleSubmit = () => {
-    mutation.mutate({ 'prompt':ideaInput,tags });
+    mutation.mutate({ prompt: ideaInput, tags });
   };
 
   return (
