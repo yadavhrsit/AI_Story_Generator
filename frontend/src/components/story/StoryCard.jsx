@@ -111,17 +111,15 @@ function StoryCard({ data }) {
         </p>
         <div className="flex gap-2">
           {location.pathname !== "/home/mystories" && (
-            <button className={`bg-[${secondary}] px-2 py-[2px] rounded`}>
+            <button
+              className={`bg-[${secondary}] px-2 py-[2px] rounded font-sans`}
+              onClick={() => mutation.mutate(data._id)}
+            >
+              {data.likes.length}
               {data.liked ? (
-                <FontAwesomeIcon
-                  icon={solidHeart}
-                  onClick={() => mutation.mutate(data._id)}
-                />
+                <FontAwesomeIcon icon={solidHeart} className="mx-1" />
               ) : (
-                <FontAwesomeIcon
-                  icon={regularHeart}
-                  onClick={() => mutation.mutate(data._id)}
-                />
+                <FontAwesomeIcon icon={regularHeart} className="mx-1" />
               )}
             </button>
           )}
