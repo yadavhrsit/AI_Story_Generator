@@ -142,7 +142,7 @@ function SignupPage() {
             <div className="mt-2 w-full relative">
               <label className="block">Password</label>
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 name="password"
                 height={"60px"}
                 className="px-2 py-2 mt-1 w-full rounded-lg bg-white text-black"
