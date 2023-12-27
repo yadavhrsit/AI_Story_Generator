@@ -15,12 +15,12 @@ function Navbar() {
     >
       <div className="flex justify-between items-center">
         <p className="text-[36px] sm:text-[44px] h-fit">Story.ai</p>
-        <div className="gap-10 text-[32px] hidden sm:flex">
+        <div className="gap-10 text-[32px] hidden md:flex">
           <NavLink to={"/home"}>Home</NavLink>
           <NavLink to={"/home/profile"}>Profile</NavLink>
-          <div className="rounded-full w-12 h-12 bg-white" />
+          
         </div>
-        <div className="lg:hidden">
+        <div className="md:hidden">
           <button onClick={toggleMenu} className="bg-transparent text-white">
             <svg
               xmlns="http://www.w3.org/2000/svg"
