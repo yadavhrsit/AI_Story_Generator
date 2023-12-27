@@ -1,2 +1,2 @@
-const api = `https://ai-story-generator-sq85.onrender.com`;
+const api = `https://shy-pink-gosling-gown.cyclic.app`;
 export default api;
