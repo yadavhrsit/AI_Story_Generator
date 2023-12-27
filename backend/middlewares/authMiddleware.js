@@ -9,7 +9,9 @@ const requireAuth = (req, res, next) => {
       req.params.userId = decodedToken;
       next();
     } catch (err) {
-      res.status(401).json({ error: "Login expired" });
+      res
+        .status(401)
+        .json({ error: "You need to be logged in to view this page" });
     }
   } else {
     res.status(401).json({ error: "You need to be logged in to view this page" });
