@@ -27,10 +27,10 @@ app.use('/story', storyRouter);
 
 mongoose.connect(process.env.DB).then(() => {
     console.log("MongoDB Connected");
+    app.listen(PORT, () => {
+        console.log(`Server Started on Port ${PORT}`);
+    });
 }).catch(() => {
     console.log("MongoDB Failed to connect");
 });
 
-app.listen(PORT, () => {
-    console.log(`Server Started on Port ${PORT}`);
-});
