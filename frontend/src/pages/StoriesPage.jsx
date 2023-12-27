@@ -47,7 +47,6 @@ function StoriesPage() {
         text: failureReason.response.data.error,
         footer: "Redirecting to login...",
         showConfirmButton: false,
-        icon: "error",
         timer: 3000,
       }).then(() => {
         Swal.close();
