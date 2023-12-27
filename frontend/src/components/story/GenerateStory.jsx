@@ -81,10 +81,7 @@ function GenerateStory() {
   });
 
   const handleSubmit = () => {
-    console.log("Story Idea:", ideaInput);
-    console.log(tags);
     mutation.mutate({ 'prompt':ideaInput,tags });
-    
   };
 
   return (

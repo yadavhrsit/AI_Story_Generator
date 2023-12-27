@@ -175,7 +175,7 @@ function SignupPage() {
 
             <p className="mt-3 h-fit w-fit">
               Already Registered ?<br />
-              <a href="/login">Login</a>
+              <a href="/login" className="underline underline-offset-4">Login</a>
             </p>
             <img
               src={img}

@@ -137,17 +137,6 @@ function LoginPage() {
                   Password is required.
                 </p>
               )}
-              {errors.password?.type === "checkLength" && (
-                <p className="errorMsg text-red-500 text-sm mt-1">
-                  Password should be at least 6 characters.
-                </p>
-              )}
-              {errors.password?.type === "matchPattern" && (
-                <p className="errorMsg text-red-500 text-sm mt-1">
-                  Password should contain at least one uppercase letter,
-                  lowercase letter, digit, and special symbol.
-                </p>
-              )}
             </div>
             <button
               type="submit"
@@ -159,7 +148,9 @@ function LoginPage() {
             <p className="mt-3 h-fit w-fit">
               Not Registered Yet?
               <br />
-              <a href="/signup">Signup</a>
+              <a href="/signup" className="underline underline-offset-4">
+                Signup
+              </a>
             </p>
             <img
               src={img}

@@ -88,25 +88,34 @@ function MyStoriesPage() {
       </div>
 
       <div className="flex gap-2 w-full flex-col md:flex-row">
-        <div className="inline-flex gap-3 flex-wrap justify-between py-8 md:flex-1">
-          {isSuccess &&
-            data?.map((storyData, index) => {
-              if (index % 2 === 0) {
-                return <StoryCard key={index} data={storyData}></StoryCard>;
-              }
-              return null;
-            })}
-        </div>
+        {data&& data.length === 0 ? (
+          <p className="text-4xl m-auto my-20 text-center">
+            You have'nt posted any Stories yet.{" "}
+          </p>
+        ) : null}
+        {data && data.length !== 0 && (
+          <>
+            <div className="inline-flex gap-3 flex-wrap justify-between py-8 md:flex-1">
+              {isSuccess &&
+                data?.map((storyData, index) => {
+                  if (index % 2 === 0) {
+                    return <StoryCard key={index} data={storyData}></StoryCard>;
+                  }
+                  return null;
+                })}
+            </div>
 
-        <div className="inline-flex gap-3 flex-wrap justify-between py-8 md:flex-1">
-          {isSuccess &&
-            data?.map((storyData, index) => {
-              if (index % 2 !== 0) {
-                return <StoryCard key={index} data={storyData}></StoryCard>;
-              }
-              return null;
-            })}
-        </div>
+            <div className="inline-flex gap-3 flex-wrap justify-between py-8 md:flex-1">
+              {isSuccess &&
+                data?.map((storyData, index) => {
+                  if (index % 2 !== 0) {
+                    return <StoryCard key={index} data={storyData}></StoryCard>;
+                  }
+                  return null;
+                })}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
