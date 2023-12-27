@@ -6,7 +6,7 @@ import cors from 'cors';
 
 dotenv.config();
 const app = express();
-const PORT = process.env.PORT || 8100;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(cookieParser());
@@ -25,12 +25,30 @@ import storyRouter from './routes/storyRoutes.js';
 app.use('/auth', authRouter);
 app.use('/story', storyRouter);
 
-mongoose.connect(process.env.DB).then(() => {
-    console.log("MongoDB Connected");
+
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.DB);
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
+};
+
+//Connect to the database before listening
+connectDB().then(() => {
     app.listen(PORT, () => {
-        console.log(`Server Started on Port ${PORT}`);
-    });
-}).catch(() => {
-    console.log("MongoDB Failed to connect");
-});
+        console.log("listening for requests");
+    })
+})
+
+// mongoose.connect(process.env.DB).then(() => {
+//     console.log("MongoDB Connected");
+//     app.listen(PORT, () => {
+//         console.log(`Server Started on Port ${PORT}`);
+//     });
+// }).catch(() => {
+//     console.log("MongoDB Failed to connect");
+// });
 
