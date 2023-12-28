@@ -14,7 +14,13 @@ app.use(express.json());
 app.use(cookieParser());
 
 
-app.use(cors({ credentials: true }));
+app.use(cors({
+    origin: true,
+    credentials: true,
+    methods: ["POST", "GET", "DELETE", "PUT", "PATCH", "OPTIONS"],
+    allowedHeaders:
+        "Origin, X-Requested-With, X-AUTHENTICATION, X-IP, Content-Type, Accept, x-access-token",
+}));
 
 app.get('/', (req, res) => {
     res.send('Server is Running');
