@@ -1,9 +1,11 @@
 import Story from "../../models/story.js";
 import User from "../../models/user.js";
+import genDesc from "../../middlewares/storyDescGenerator.js";
+import genTitle from "../../middlewares/storyTitleGenerator.js";
 
 async function addStory(req, res) {
   try {
-    let { title, tags, description, content } = req.body;
+    let { tags,content } = req.body;
     let {userId} = req.params;
     const user = await User.findById(userId.id);
     if (!user) {
@@ -13,6 +15,9 @@ async function addStory(req, res) {
     const userFullname = user.fullname;
     const wordCount = content.split(" ").length;
     const time = `${Math.ceil(wordCount / 100)} min read`;
+
+    const title = await genTitle(content);
+    const description = await genDesc(content);
 
     const newStory = new Story({
       title,

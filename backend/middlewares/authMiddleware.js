@@ -7,10 +7,6 @@ const requireAuth = (req, res, next) => {
     try {
       const decodedToken = jwt.verify(token, process.env.SECRET);
       req.params.userId = decodedToken;
-       res.header(
-         "Access-Control-Allow-Origin",
-         "https://ai-story-generator.vercel.app"
-       );
       next();
     } catch (err) {
       res
