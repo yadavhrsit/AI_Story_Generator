@@ -4,6 +4,8 @@ import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 
+import {corsMiddleware} from './middlewares/corsMiddleware.js';
+
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -11,9 +13,9 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(cookieParser());
 
-const allowedOrigin = "https://ai-story-generator.vercel.app";
 
-app.use(cors({ origin: allowedOrigin }));
+app.use(cors());
+app.use(corsMiddleware);
 
 app.get('/', (req, res) => {
     res.send('Server is Running');
