@@ -13,12 +13,14 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({
-  origin: '*',
-  credentials: true,
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', 
-}));
+app.use(
+  cors({
+    origin: "https://ai-story-generator.vercel.app",
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  })
+);
 
 app.get('/', (req, res) => {
     res.send('Server is Running');
