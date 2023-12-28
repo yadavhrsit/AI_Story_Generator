@@ -4,7 +4,8 @@ import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 
-import {corsMiddleware} from './middlewares/corsMiddleware.js';
+import authRouter from "./routes/authRoutes.js";
+import storyRouter from "./routes/storyRoutes.js";
 
 dotenv.config();
 const app = express();
@@ -12,23 +13,16 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(cookieParser());
-
-
 app.use(cors({
-  origin: 'https://ai-story-generator.vercel.app',
+  origin: '*',
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization'],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', 
 }));
 
-
 app.get('/', (req, res) => {
     res.send('Server is Running');
 });
-
-
-import authRouter from './routes/authRoutes.js';
-import storyRouter from './routes/storyRoutes.js';
 app.use('/auth', authRouter);
 app.use('/story', storyRouter);
 
@@ -43,19 +37,11 @@ const connectDB = async () => {
   }
 };
 
-//Connect to the database before listening
 connectDB().then(() => {
     app.listen(PORT, () => {
         console.log("listening for requests");
     })
 })
 
-// mongoose.connect(process.env.DB).then(() => {
-//     console.log("MongoDB Connected");
-//     app.listen(PORT, () => {
-//         console.log(`Server Started on Port ${PORT}`);
-//     });
-// }).catch(() => {
-//     console.log("MongoDB Failed to connect");
-// });
+
 
