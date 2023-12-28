@@ -1,2 +1,2 @@
-const api = `https://shy-pink-gosling-gown.cyclic.app`;
+const api = `https://ai-story-generator-rapl.vercel.app`;
 export default api;
