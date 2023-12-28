@@ -1,2 +1,2 @@
-const api = `https://ai-story-generator-rapl.vercel.app`;
+const api = `https://ai-story-generator-sq85.onrender.com`;
 export default api;
