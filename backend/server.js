@@ -15,12 +15,12 @@ app.use(cookieParser());
 
 
 app.use(cors({
-    origin: true,
-    credentials: true,
-    methods: ["POST", "GET", "DELETE", "PUT", "PATCH", "OPTIONS"],
-    allowedHeaders:
-        "Origin, X-Requested-With, X-AUTHENTICATION, X-IP, Content-Type, Accept, x-access-token",
+  origin: 'https://ai-story-generator.vercel.app',
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', 
 }));
+
 
 app.get('/', (req, res) => {
     res.send('Server is Running');
