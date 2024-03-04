@@ -62,13 +62,13 @@ function StoryCard({ data }) {
           <p className="py-1 text-2xl uppercase font-semibold">{data.title}</p>
           <div className="flex gap-2 md:hidden">
             <div className="rounded-full w-[35px] h-[35px] mt-1">
-              {data.user
+              {data.userId.fullname
                 .split(" ")
                 .map((name) => name.charAt(0))
                 .join("")}
             </div>
             <div className="flex flex-col text-sm">
-              <p>{data.user}</p>
+              <p>{data.userId.fullname}</p>
               <div className="flex gap-8">
                 <p>{data.date_created ? data.date_created : ""}</p>
                 <p>{data.time_created ? data.time_created : ""}</p>
@@ -79,19 +79,28 @@ function StoryCard({ data }) {
         <div className="flex-col gap-1 hidden md:flex pt-2 pr-2 ml-1">
           <div className="flex gap-3">
             <div className="flex flex-col items-end">
-              <p>{data.user}</p>
+              <p>{data.userId.fullname}</p>
               <div className="flex gap-1">
                 <p>{data.date_created ? data.date_created : ""}</p>
                 <p>{data.time_created ? data.time_created : ""}</p>
               </div>
             </div>
+
             <div className="rounded-full flex items-center justify-center bg-white w-[35px] h-[35px] mt-1">
-              <p className="uppercase text-black font-semibold">
-                {data.user
-                  .split(" ")
-                  .map((name) => name.charAt(0))
-                  .join("")}
-              </p>
+              {!data.userId.avatar ? (
+                <p className="uppercase text-black font-semibold">
+                  {data.user
+                    .split(" ")
+                    .map((name) => name.charAt(0))
+                    .join("")}
+                </p>
+              ) : (
+                <img
+                  src={data.userId.avatar}
+                  alt="profile"
+                  className="rounded-full"
+                ></img>
+              )}
             </div>
           </div>
         </div>

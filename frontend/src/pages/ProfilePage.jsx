@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
@@ -10,6 +10,7 @@ import api from "../assets/api";
 
 function ProfilePage() {
   const token = localStorage.getItem("jwtToken");
+  const [avatar, setAvatar] = useState(null);
   const {
     register,
     handleSubmit,
@@ -52,8 +53,22 @@ function ProfilePage() {
     },
   });
 
-  const onSubmit = (data) => {
-    mutation.mutate({ ...data });
+  const handleAvatarChange = (event) => {
+    const file = event.target.files[0];
+    setAvatar(file);
+  };
+
+  const onSubmit = async (data) => {
+    try {
+      const formData = new FormData();
+      formData.append("avatar", avatar);
+      formData.append("fullname", data.fullname);
+      formData.append("password", data.password);
+
+      mutation.mutate(formData);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
   };
   return (
     <div
@@ -71,53 +86,17 @@ function ProfilePage() {
             height={"60px"}
             className="px-2 py-2 mt-1 w-full rounded-lg bg-white text-black"
             {...register("fullname", {
-              required: true,
               minLength: 6,
             })}
           />
-          {errors.fullname?.type === "required" && (
-            <p className="errorMsg text-red-500 text-sm mt-1">
-              Full Name is required.
-            </p>
-          )}
+
           {errors.fullname?.type === "minLength" && (
             <p className="errorMsg text-red-500 text-sm mt-1">
               Full Name should be at-least 6 characters.
             </p>
           )}
         </div>
-        <div className="mt-2 w-full">
-          <label className="block">Email</label>
-          <input
-            type="email"
-            name="email"
-            height={"60px"}
-            className="px-2 py-2 mt-1 w-full rounded-lg bg-white text-black"
-            {...register("email", {
-              required: true,
-              validate: {
-                checkLength: (value) => value.length >= 5,
-                matchPattern: (value) =>
-                  /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/.test(value),
-              },
-            })}
-          />
-          {errors.email?.type === "required" && (
-            <p className="errorMsg text-red-500 text-sm mt-1">
-              Email is required.
-            </p>
-          )}
-          {errors.email?.type === "checkLength" && (
-            <p className="errorMsg text-red-500 text-sm mt-1">
-              Email should be at-least 5 characters.
-            </p>
-          )}
-          {errors.email?.type === "matchPattern" && (
-            <p className="errorMsg text-red-500 text-sm mt-1">
-              Invalid Email format. Please check and try again
-            </p>
-          )}
-        </div>
+
         <div className="mt-2 w-full">
           <label className="block">Password</label>
           <input
@@ -126,21 +105,17 @@ function ProfilePage() {
             height={"60px"}
             className="px-2 py-2 mt-1 w-full rounded-lg bg-white text-black"
             {...register("password", {
-              required: true,
               validate: {
-                checkLength: (value) => value.length >= 6,
+                checkLength: (value) => !value || value.length >= 6,
                 matchPattern: (value) =>
+                  !value ||
                   /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s)(?=.*[!@#$*])/.test(
                     value
                   ),
               },
             })}
           />
-          {errors.password?.type === "required" && (
-            <p className="errorMsg text-red-500 text-sm mt-1">
-              Password is required.
-            </p>
-          )}
+
           {errors.password?.type === "checkLength" && (
             <p className="errorMsg text-red-500 text-sm mt-1">
               Password should be at-least 6 characters.
@@ -161,21 +136,17 @@ function ProfilePage() {
             height={"60px"}
             className="px-2 py-2 mt-1 w-full rounded-lg bg-white text-black"
             {...register("repeat_password", {
-              required: true,
               validate: {
-                checkLength: (value) => value.length >= 6,
+                checkLength: (value) => !value || value.length >= 6,
                 matchPattern: (value) =>
+                  !value ||
                   /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s)(?=.*[!@#$*])/.test(
                     value
                   ),
-              },
+              },  
             })}
           />
-          {errors.repeat_password?.type === "required" && (
-            <p className="errorMsg text-red-500 text-sm mt-1">
-              Password is required.
-            </p>
-          )}
+
           {errors.repeat_password?.type === "checkLength" && (
             <p className="errorMsg text-red-500 text-sm mt-1">
               Password should be at-least 6 characters.
@@ -187,6 +158,16 @@ function ProfilePage() {
               letter, digit, and special symbol.
             </p>
           )}
+        </div>
+        <div className="mt-2 w-full">
+          <label className="block">Avatar</label>
+          <input
+            type="file"
+            name="avatar"
+            accept="image/*"
+            className="px-2 py-2 mt-1 w-full rounded-lg bg-white text-black"
+            onChange={handleAvatarChange}
+          />
         </div>
         <button
           type="submit"

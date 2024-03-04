@@ -1,2 +1,2 @@
-const api = `https://ai-story-generator-rapl.vercel.app`;
+const api = `http://localhost:8281`;
 export default api;

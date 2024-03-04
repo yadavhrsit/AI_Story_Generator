@@ -3,10 +3,19 @@ import moment from "moment";
 
 async function leaderboard(req, res) {
   try {
-    const topStories = await Story.find()
-      .sort({ "likes.length": -1, createdAt: -1 })
-      .limit(5)
-      .select("title createdAt userId likes _id");
+    const topStories = await Story.aggregate([
+      {
+        $project: {
+          title: 1,
+          createdAt: 1,
+          userId: 1,
+          likes: 1,
+          numberOfLikes: { $size: '$likes' }
+        }
+      },
+      { $sort: { numberOfLikes: -1, createdAt: -1 } },
+      { $limit: 5 }
+    ]);
 
     const populatedStories = await Promise.all(
       topStories.map(async (story) => {
@@ -14,15 +23,15 @@ async function leaderboard(req, res) {
 
         const populatedStory = await Story.populate(story, {
           path: "userId",
-          select: "fullname",
+          select: "fullname avatar",
         });
 
         return {
-          id:populatedStory._id,
+          id: populatedStory._id,
           title: populatedStory.title,
           date: formattedDate,
-          user: populatedStory.userId.fullname,
-          numberOfLikes: populatedStory.likes.length,
+          user: populatedStory.userId,
+          numberOfLikes: populatedStory.numberOfLikes,
         };
       })
     );

@@ -14,6 +14,7 @@ import api from "../assets/api";
 
 function SignupPage() {
   const navigate = useNavigate();
+  const [avatar, setAvatar] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
   const {
     register,
@@ -53,8 +54,23 @@ function SignupPage() {
     },
   });
 
-  const onSubmit = (data) => {
-    mutation.mutate({ ...data });
+  const handleAvatarChange = (event) => {
+    const file = event.target.files[0];
+    setAvatar(file);
+  };
+
+  const onSubmit = async (data) => {
+    try {
+      const formData = new FormData();
+      formData.append("avatar", avatar); // Append the avatar file to the form data
+      formData.append("fullname", data.fullname);
+      formData.append("email", data.email);
+      formData.append("password", data.password);
+
+      mutation.mutate(formData);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
   };
 
   const togglePasswordVisibility = () => {
@@ -178,6 +194,16 @@ function SignupPage() {
                   lowercase letter, digit, and special symbol.
                 </p>
               )}
+            </div>
+            <div className="mt-2 w-full">
+              <label className="block">Avatar</label>
+              <input
+                type="file"
+                name="avatar"
+                accept="image/*"
+                className="px-2 py-2 mt-1 w-full rounded-lg bg-white text-black"
+                onChange={handleAvatarChange}
+              />
             </div>
             <button
               type="submit"

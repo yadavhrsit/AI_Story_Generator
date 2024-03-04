@@ -30,12 +30,6 @@ const storySchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
-  user: {
-    type: String,
-    required: true,
-    minlength: 5,
-    maxlength: 30,
-  },
   likes: [
     {
       userId: {

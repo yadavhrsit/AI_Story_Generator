@@ -12,7 +12,8 @@ async function getStoriesByUser(req, res) {
     const stories = await Story.find({ userId: userId })
       .sort({ createdAt: -1 })
       .skip(skip)
-      .limit(limit);
+      .limit(limit)
+      .populate("userId", "fullname avatar");
 
     const updatedStories = stories.map((story) => {
       const formattedDate = moment(story.createdAt).format("DD/MM/YY");
@@ -20,15 +21,13 @@ async function getStoriesByUser(req, res) {
 
       return {
         ...story._doc,
-        user: "You",
         date_created: formattedDate,
         time_created: formattedTime,
       };
     });
 
-    setTimeout(() => {
-      res.status(200).json(updatedStories);
-    }, 2000);
+    res.status(200).json(updatedStories);
+
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Failed to fetch stories" });

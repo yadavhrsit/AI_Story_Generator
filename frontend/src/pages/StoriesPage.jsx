@@ -41,7 +41,7 @@ function StoriesPage() {
   }
 
   if (error || isLoadingError) {
-    if (failureReason.response.status === 401) {
+    if (failureReason.response && failureReason.response.status === 401) {
       Swal.fire({
         title: "Login error!",
         text: failureReason.response.data.error,
@@ -90,7 +90,7 @@ function StoriesPage() {
         </div>
       </div>
 
-      <div className="flex gap-2 w-full flex-col md:flex-row">
+      <div className="h-fit flex gap-2 w-full flex-col md:flex-row">
         <div className="inline-flex gap-3 flex-wrap justify-between py-8 md:flex-1">
           {isSuccess &&
             data?.map((storyData, index) => {
@@ -101,7 +101,7 @@ function StoriesPage() {
             })}
         </div>
 
-        <div className="inline-flex gap-3 flex-wrap justify-between py-8 md:flex-1">
+        <div className="h-fit inline-flex gap-3 flex-wrap justify-between py-8 md:flex-1">
           {isSuccess &&
             data?.map((storyData, index) => {
               if (index % 2 !== 0) {

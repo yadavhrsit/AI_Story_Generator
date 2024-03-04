@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
-    unique: true, 
+    unique: true,
     lowercase: true,
     minlength: 5,
     maxlength: 50,
@@ -20,7 +20,10 @@ const userSchema = new mongoose.Schema({
     required: true,
     minlength: 6,
     maxlength: 60,
-  }
+  },
+  avatar: {
+    type: String,
+  },
 });
 
 const User = mongoose.model('User', userSchema);

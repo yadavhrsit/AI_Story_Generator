@@ -12,7 +12,6 @@ async function addStory(req, res) {
       return res.status(404).json({ error: "User not found" });
     }
     userId = userId.id;
-    const userFullname = user.fullname;
     const wordCount = content.split(" ").length;
     const time = `${Math.ceil(wordCount / 100)} min read`;
 
@@ -25,8 +24,7 @@ async function addStory(req, res) {
       description,
       content,
       time,
-      userId,
-      user: userFullname,
+      userId
     });
 
     const savedStory = await newStory.save();

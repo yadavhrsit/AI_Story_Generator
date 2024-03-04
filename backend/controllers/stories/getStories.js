@@ -1,4 +1,5 @@
 import Story from "../../models/story.js";
+import User from "../../models/user.js";
 import moment from "moment";
 
 async function getStories(req, res) {
@@ -10,7 +11,8 @@ async function getStories(req, res) {
     const stories = await Story.find()
       .sort({ createdAt: -1 })
       .skip(skip)
-      .limit(limit);
+      .limit(limit)
+      .populate("userId", "fullname avatar");
 
     const updatedStories = stories.map((story) => {
       const liked = story.likes.some((like) =>

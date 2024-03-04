@@ -3,3 +3,8 @@ frontend/node_modules
 
 # Local Netlify folder
 .netlify
+
+.gitignore
+frontend/.gitignore
+backend/.ENV
+backend/.ENV
