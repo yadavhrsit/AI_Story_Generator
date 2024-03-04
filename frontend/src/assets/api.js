@@ -1,2 +1,2 @@
-const api = `http://localhost:8281`;
+const api = `https://ai-story-generator-sq85.onrender.com`;
 export default api;
